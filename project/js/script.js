@@ -43,14 +43,14 @@ genre.textContent = "Драма";
 newBacground.style.backgroundImage = 'url("img/bg.jpg")';
 
 movieDB.movies.sort();
-films.forEach(i => {
-    i.remove();
+parentFilms.childNodes.forEach((i, a)  => {
+    parentFilms.childNodes[a].remove();
 });
 
-movieDB.movies.forEach (function(item, i) {
-    parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
-    <div class="delete"></div></li>`);
-});
+// movieDB.movies.forEach (function(item, i) {
+//     parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
+//     <div class="delete"></div></li>`);
+// });
 
 /////////////////////////////////////////////////
 // newFilms.addEventListener("click", (e) => {
