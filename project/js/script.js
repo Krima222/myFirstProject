@@ -32,7 +32,8 @@ const advertisement = document.querySelectorAll('.promo__adv'),
       newBacground = document.querySelector('.promo__bg'),
       parentFilms = document.querySelector(".promo__interactive-list"),
       newFilms = document.querySelector('button'),
-      clickNewFilms = document.querySelector('.adding__input');
+      clickNewFilms = document.querySelector('.adding__input'),
+      checkboxLike = document.querySelector('input[type="checkbox"]');
  
 
 advertisement[0].remove();
@@ -41,37 +42,46 @@ genre.textContent = "Драма";
 
 newBacground.style.backgroundImage = 'url("img/bg.jpg")';
 
-movieDB.movies.sort();
+// movieDB.movies.forEach(()  => {
+//     parentFilms.firstElementChild.remove();
+// });
 
-movieDB.movies.forEach(()  => {
-    parentFilms.firstElementChild.remove();
-});
-
-movieDB.movies.forEach (function(item, i) {
-    parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
-    <div class="delete"></div></li>`);
-});
-
-/////////////////////////////////////////////////
-
-newFilms.addEventListener("click", (e) => {
-    e.preventDefault();
-    let newText = clickNewFilms.value;
-    
-    if (newText.length > 21){
-        newText = `${newText.slice(0, 21)}...`;
-    }
-    movieDB.movies.push(newText);
+function updateMovieList() {
     movieDB.movies.sort();
-    movieDB.movies.forEach((a, i)  => {
-        if (i !== movieDB.movies.length-1){
-            parentFilms.firstElementChild.remove();
-        }
-    });
+    parentFilms.innerHTML = "";
     movieDB.movies.forEach (function(item, i) {
         parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
         <div class="delete"></div></li>`);
     });
-});
+    parentFilms.childNodes.forEach ((item, i) => {
+        item.addEventListener("click", (e) =>{
+            movieDB.movies.splice(i, 1);
+            updateMovieList();
+        });
+    });
+    
+}
+updateMovieList();
 
+newFilms.addEventListener("click", (e) => {
+    e.preventDefault();
+    let newText = clickNewFilms.value;
+    if (newText){
+        if (newText.length > 21){
+                newText = `${newText.slice(0, 21)}...`;
+        }
+        movieDB.movies.push(newText);
+            
+        // movieDB.movies.forEach((a, i)  => {
+        //     if (i !== movieDB.movies.length-1){
+        //         parentFilms.firstElementChild.remove();
+        //     }
+        // });
+        updateMovieList();
+        if (checkboxLike.checked) {
+            console.log("Добавляем любимый фильм");
+        }
+    }
+    
+});
 
