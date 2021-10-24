@@ -54,10 +54,24 @@ movieDB.movies.forEach (function(item, i) {
 
 /////////////////////////////////////////////////
 
-// newFilms.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     let newText = clickNewFilms.value;
-//     movieDB.movies.push(newText);
-// });
+newFilms.addEventListener("click", (e) => {
+    e.preventDefault();
+    let newText = clickNewFilms.value;
+    
+    if (newText.length > 21){
+        newText = `${newText.slice(0, 21)}...`;
+    }
+    movieDB.movies.push(newText);
+    movieDB.movies.sort();
+    movieDB.movies.forEach((a, i)  => {
+        if (i !== movieDB.movies.length-1){
+            parentFilms.firstElementChild.remove();
+        }
+    });
+    movieDB.movies.forEach (function(item, i) {
+        parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
+        <div class="delete"></div></li>`);
+    });
+});
 
 
