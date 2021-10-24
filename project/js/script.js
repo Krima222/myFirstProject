@@ -31,7 +31,6 @@ const advertisement = document.querySelectorAll('.promo__adv'),
       genre = document.querySelector('.promo__genre'),
       newBacground = document.querySelector('.promo__bg'),
       parentFilms = document.querySelector(".promo__interactive-list"),
-      films = document.querySelectorAll('.promo__interactive-item'),
       newFilms = document.querySelector('button'),
       clickNewFilms = document.querySelector('.adding__input');
  
@@ -43,16 +42,18 @@ genre.textContent = "Драма";
 newBacground.style.backgroundImage = 'url("img/bg.jpg")';
 
 movieDB.movies.sort();
-parentFilms.childNodes.forEach((i, a)  => {
-    parentFilms.childNodes[a].remove();
+
+movieDB.movies.forEach(()  => {
+    parentFilms.firstElementChild.remove();
 });
 
-// movieDB.movies.forEach (function(item, i) {
-//     parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
-//     <div class="delete"></div></li>`);
-// });
+movieDB.movies.forEach (function(item, i) {
+    parentFilms.insertAdjacentHTML ("beforeend", `<li class="promo__interactive-item">${++i} ${ item}
+    <div class="delete"></div></li>`);
+});
 
 /////////////////////////////////////////////////
+
 // newFilms.addEventListener("click", (e) => {
 //     e.preventDefault();
 //     let newText = clickNewFilms.value;
